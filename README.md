@@ -14,3 +14,7 @@ DELETE | /places:id  |  delete a place
 POST   | /places:id/rant   |   create a rant about a place
 DELTE  | /places:id/rantId   |   delete a rant
 GET    |  *  |  404 page
+
+
+
+Jamba Juice - Burbank - California - smoothies - im
