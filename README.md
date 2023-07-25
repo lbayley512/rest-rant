@@ -17,4 +17,4 @@ GET    |  *  |  404 page
 
 
 
-Jamba Juice - Burbank - California - smoothies - im
+Jamba Juice - Burbank - California - smoothies - img
