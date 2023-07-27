@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const places = require('../models/places.js')
+const error404 = require('../views/error404.jsx')
 
 router.get('/', (req, res) => {
     res.render('places/index', { places })
@@ -51,6 +52,9 @@ router.post('/', (req,res) => {
   places.push(req.body)
   res.redirect('/places')
 })
+
+
+
 
 router.delete('/:id', (req, res) => {
   let id = Number(req.params.id)
