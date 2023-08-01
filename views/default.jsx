@@ -28,4 +28,4 @@ return (
 )
 }
 
-module.exports = Def
+module.exports = Def;

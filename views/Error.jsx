@@ -1,7 +1,7 @@
-const React = require('react')
-const Def = require('./default')
+const React = require('react');
+const Def = require('./default');
 
-function error404 () {
+function Error() {
     return (
         <Def>
             <main>
@@ -18,4 +18,4 @@ function error404 () {
     )
 }
 
-module.exports = error404
+module.exports = Error;
