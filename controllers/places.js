@@ -19,7 +19,9 @@ router.get('/new', (req,res) => {
 
 router.get('/:id', (req, res) => {
   db.Place.findById(req.params.id)
+  .populate('comments')
   .then(place => {
+    console.log(place.comments)
       res.render('places/show', { place })
   })
   .catch(err => {
@@ -31,8 +33,9 @@ router.get('/:id', (req, res) => {
 
 router.get('/:id/edit', (req, res) => {
   let id = Number(req.params.id)
-  console.log(id);
+  
   if (isNaN(id)) {
+      console.log(id);
       res.render('Error')
   }
   else if (!places[id]) {
