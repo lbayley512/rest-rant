@@ -95,7 +95,7 @@ router.put('/:id', (req, res) => {
   .then(place =>{
     place.save()
     // Save the new data into places[id]
-    places[id] = req.body
+    places[id]= req.body
     res.redirect(`/places/${id}`)
   })
   .catch(err => {
