@@ -32,23 +32,22 @@ router.get('/:id', (req, res) => {
 
 
 router.get('/:id/edit', (req, res) => {
-  let id = Number(req.params.id)
-  
-  if (isNaN(id)) {
-      console.log(id);
-      res.render('Error')
-  }
-  else if (!places[id]) {
-      res.render('Error')
-  }
-  else { 
-    res.render('places/edit', { place: places[id], id: id })
-  }
+  db.Place.findById(req.params.id)
+  .populate('')
+   .then(place =>{
+    res.render('places/edit', {place})
+   })
+   .catch(err => {
+    console.log(err)
+    res.render('Error')
+   })
 })
 
 
 
 router.post('/', (req,res) => {
+
+  
   db.Place.create(req.body)
    .then(() => {
     res.redirect('/places')
@@ -63,52 +62,60 @@ router.post('/', (req,res) => {
         res.render('places/new', { message })
       }
       else {
-        res.render('error404')
+        res.render('Error')
       }
    })
 })
 
-router.put('/:id', (req, res) => {
-  let id = Number(req.params.id)
-  if (isNaN(id)) {
+router.post('/:id/comment', (req,res) => {
+  console.log(req.body)
+  db.Place.findById(req.params.id)
+  .then(place => {
+    db.Comment.create(req.body)
+    .then(comment => {
+      place.comments.puch(comment.id)
+      place.save()
+      .then(() => {
+        res.redirect(`/plaes/${req.params.id}`)
+      })
+    })
+    .catch(err => {
       res.render('Error')
-  }
-  else if (!places[id]) {
-      res.render('Error')
-  }
-  else {
-      // Dig into req.body and make sure data is valid
-      if (!req.body.pic) {
-          // Default image if one is not provided
-          req.body.pic = 'http://placekitten.com/400/400'
-      }
-      if (!req.body.city) {
-          req.body.city = 'Anytown'
-      }
-      if (!req.body.state) {
-          req.body.state = 'USA'
-      }
+    })
+  })
+  .catch(err => {
+    res.render('Error')
+  })
+  req.body.rant = req.body.rant ? true : false
+  res.send("GET /places/:id/comment stub")
+})
 
-      // Save the new data into places[id]
-      places[id] = req.body
-      res.redirect(`/places/${id}`)
-  }
+router.put('/:id', (req, res) => {
+  let id = db.Place.findById(req.params.id)
+  .then(place =>{
+    place.save()
+    // Save the new data into places[id]
+    places[id] = req.body
+    res.redirect(`/places/${id}`)
+  })
+  .catch(err => {
+   console.log(err)
+   res.render('Error')
+  })
 })
 
 
 
 router.delete('/:id', (req, res) => {
-  let id = Number(req.params.id)
-  if (isNaN(id)) {
-    res.render('Error')
-  }
-  else if (!places[id]) {
-    res.render('Error')
-  }
-  else {
-    places.splice(id, 1)
-    res.redirect('/places')
-  }
+  let id = db.Place.findById(req.params.id)
+  .then(place =>{
+   place.deleteOne({_id: id})
+   res.redirect('/places')
+  })
+  .catch(err => {
+   console.log(err)
+   res.render('Error')
+  })
 })
 
 

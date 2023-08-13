@@ -11,7 +11,7 @@ function edit_form({place, id}) {
                   <div className="row">
                     <div className="form-group col-sm-6">
                         <label htmlFor="name">Place Name</label>
-                        <input value={place.name} className="form-control" id="name" name="name" required/>
+                        <input defaultValue={place.name} className="form-control" id="name" name="name" required/>
                     </div>
                     <div  className="form-group col-sm-6">
                         <label htmlFor="pic">Place Picture</label>
@@ -19,15 +19,15 @@ function edit_form({place, id}) {
                     </div>
                     <div  className="form-group col-sm-6">
                         <label htmlFor="city">City</label>
-                        <input value={place.city} className="form-control" id="city" name="city"/>
+                        <input defaultValue={place.city} className="form-control" id="city" name="city"/>
                     </div>
                     <div  className="form-group col-sm-6">
                         <label htmlFor="state">State</label>
-                        <input value={place.state} className="form-control" id="state" name="state"/>
+                        <input defaultValue={place.state} className="form-control" id="state" name="state"/>
                     </div>
                     <div  className="form-group">
                         <label htmlFor="cuisines">Cuisines</label>
-                        <input value={place.cuisines} className="form-control" id="cuisines" name="cuisines" required/>
+                        <input defaultValue={place.cuisines} className="form-control" id="cuisines" name="cuisines" required/>
                     </div>
                 </div>
                     <input className="btn btn-primary" type="submit" value="Add Place"/>
