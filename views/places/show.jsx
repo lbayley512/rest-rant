@@ -7,7 +7,23 @@ function show (data) {
             No comments yet!
         </h3>
     )
-    if (data.place.comments.length >= 1) {
+    let rating = (
+        <h3 className="inactive">Not Yet Rated</h3>
+    )
+    if (data.place.comments.length) {
+        let sumRatings = data.palce.comments.reduce((tot, c) => {
+            return tot + c.stars
+        }, 0)
+        let averageRating = Math.round(sumRatings / data.place.comments.length)
+        let stars =''
+        for (let i = 0; i < averageRating; i++) {
+            stars += '* '
+        }
+        rating = (
+            <h3>
+                {stars} stars
+            </h3>
+        )
         let comments = place.comments.map(c => {
             return( 
                 <div className="border">
@@ -40,7 +56,7 @@ function show (data) {
                 <h1>{data.place.name}</h1>
                     <img src={data.place.pic}/>
                 <h2>Rating</h2>
-                    <p>Currently Unrated</p>
+                    {rating}
                 <h2>Description</h2>
                     <p>Located in  {data.place.city}, {data.place.state} and serving {data.place.cuisines}</p>
                 <h2>{data.place.showEstablished()}</h2>
